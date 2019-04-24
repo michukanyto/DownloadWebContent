@@ -15,10 +15,10 @@ import android.widget.TextView;
 
 import model.DownloadTask;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     
     TextView resultTextView;
-    TextView urlTextView;
+    EditText urlEditText;
     Button downloadButton;
 
     @Override
@@ -37,21 +37,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        DownloadTask task = new DownloadTask();
-        String result = null;
-        try {
-            result = task.execute("https://www.w3schools.com").get();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        Log.i("Result",result);
         initialize();
-
     }
 
     private void initialize() {
+        resultTextView = findViewById(R.id.textViewResult);
+        urlEditText = findViewById(R.id.editTextUrl);
+        downloadButton = findViewById(R.id.buttonDownload);
+        downloadButton.setOnClickListener(this);
+
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -73,5 +70,28 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void downloadWebContent(){
+        DownloadTask task = new DownloadTask();
+        String result = null;
+        try {
+            result = task.execute(urlEditText.getText().toString()).get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        resultTextView.setText(result);
+        Log.i("Result",result);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.buttonDownload:
+                downloadWebContent();
+                break;
+            default:
+                break;
+        }
     }
 }

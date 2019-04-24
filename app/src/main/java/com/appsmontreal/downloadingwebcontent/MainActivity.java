@@ -16,8 +16,8 @@ import android.widget.TextView;
 import model.DownloadTask;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    
-    TextView resultTextView;
+
+    EditText resultEditText;
     EditText urlEditText;
     Button downloadButton;
 
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initialize() {
-        resultTextView = findViewById(R.id.textViewResult);
+        resultEditText = findViewById(R.id.editTextResult1);
         urlEditText = findViewById(R.id.editTextUrl);
         downloadButton = findViewById(R.id.buttonDownload);
         downloadButton.setOnClickListener(this);
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } catch (Exception e) {
             e.printStackTrace();
         }
-        resultTextView.setText(result);
+        resultEditText.setText(result);
         Log.i("Result",result);
     }
 
